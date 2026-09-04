@@ -1,0 +1,180 @@
+# ==============================================================================
+# tinyDSL MACRO PATTERNS (MACROS)
+# ==============================================================================
+# Macro patterns are full-document blueprints for complete task, component,
+# contract, and synchronization specifications. They assemble micro patterns
+# and modular patterns into end-to-end structural templates.
+#
+# NOTE: Individual sections within these blueprints are optional. Omit any
+# section that has no corresponding information in the source task.
+# ==============================================================================
+
+
+# ------------------------------------------------------------------------------
+# 1. THE TASK TRANSFORMATION SPECIFICATION
+# ------------------------------------------------------------------------------
+# Used to direct an AI agent, engineer, or pipeline worker to modify, refactor,
+# or normalize deliverables within strictly bounded perimeters without regressions.
+
+task:
+  name: "<task_name_or_identifier>"
+  description: >
+    <Flowing natural-language prose summarizing the operational intent,
+    background context, and required transformation.>
+
+context:
+  [load | read_from]: # read-only background material (must remain unaltered)
+    - "<read_only_source_or_file_path>"
+  [modify | write_to]: # actively modifiable target surface
+    - "<modifiable_surface_or_file_path>"
+  # Co-existing workspace extensions (add as applicable):
+  <sandbox_extension>: # e.g., scratchpad, tools, environment
+    - "<temporary_buffer_or_permitted_utility>"
+
+authority:
+  [ground_truth | master_source]: "<authoritative_parent_spec_or_model>"
+  precedence: "<primary_source> > <secondary_source> > <default_assumption>"
+
+outcomes:
+  [target_outcome | target_layout | desired_end_state | ...]:
+    path: "<target_artifact_path>"
+    # Declarative target layout / normalization:
+    normalize:
+      [section_order | field_order | item_order | ...]:
+        - "<expected_first_item>"
+        - "<expected_second_item>"
+      section_headers: true    # optional switch: enforce standard header conventions
+      blank_line_spacing: true # optional switch: enforce standard spacing between blocks
+
+constraints:
+  # Generative preservation flags:
+  preserve_<aspect_to_lock>: true # e.g., preserve_behavior, preserve_signatures
+
+  # Explicit affirmative retention list:
+  preserve:
+    - "<element_logic_or_comments_to_keep_intact>" # e.g., "public_api_method_signatures"
+
+  # Isolated negative quarantine:
+  prohibited:
+    - "<forbidden_action_or_addition>" # e.g., "unrequested_taxonomies"
+    - "<unauthorized_mutation>"        # e.g., "external_network_calls"
+
+evaluation:
+  [verify | checks]:
+    - "<positive_pass_fail_assertion>" # e.g., "section_header_count == 6"
+    - "<negative_proof_assertion>"     # e.g., "zero_legacy_imports_remain == true"
+  [validation_strategy | test_harness]:
+    - "<schema_validator_pydantic_model_or_test_suite>"
+
+
+# ------------------------------------------------------------------------------
+# 2. THE STRUCTURAL COMPONENT & ARCHITECTURE SPECIFICATION
+# ------------------------------------------------------------------------------
+# Used to define system architecture, autonomous agents, components, their
+# owned resources, boundary interfaces, dependencies, and outward guarantees.
+
+<entity_or_component_name>: # e.g., knowledge_component, data_ingest_service
+  name: "<human_readable_name>"
+  role: "<primary_duty_mission_or_capability>"
+  lifetime: [singleton | transient | ephemeral | session | ...] # optional: persistence scope
+
+  resources:
+    owned: # assets managed exclusively by this entity
+      - name: "<primary_data_store_or_resource_name>"
+        description: "<purpose_and_contents_stored>"
+    # Co-existing sibling categories (add as applicable):
+    <resource_category>: # e.g., shared, external, ephemeral
+      - name: "<shared_pool_or_third_party_resource_name>"
+        description: "<purpose_and_access_scope>"
+
+  # Boundary interaction channels & data ingress/egress:
+  interfaces:
+    [inputs | accepts]:
+      - name: "<ingress_channel_or_api_name>"
+        accepts: "<expected_payload_schema_or_format>"
+    [outputs | emits]:
+      - name: "<egress_channel_or_api_name>"
+        emits: "<emitted_payload_schema_or_format>"
+
+  dependencies:
+    - "<required_upstream_component_or_service>"
+    # Use 'dependencies: []' to explicitly assert zero dependencies
+
+  [guarantees | postconditions]:
+    - "<promised_state_or_exit_invariant>"
+    # e.g., "Referential integrity is maintained across all profile layers"
+
+  constraints:
+    prohibited:
+      - "<forbidden_dependencies_direct_reads_or_coupling>"
+
+
+# ------------------------------------------------------------------------------
+# 3. THE BEHAVIORAL CONTRACT & SERVICE PROTOCOL SPECIFICATION
+# ------------------------------------------------------------------------------
+# Used to specify how an operational module, workflow, or API behaves dynamically,
+# including preconditions, exit guarantees, contingency recovery, and state models.
+
+contract:
+  name: "<contract_or_protocol_name>"
+  entity_reference: "<parent_component_or_service_name>"
+  purpose: >
+    <Multiline natural-language prose describing the operational responsibility,
+    caller-callee relationship, and execution boundaries.>
+
+  # Caller-callee contract terms:
+  [assumptions | preconditions]:
+    - "<condition_assumed_true_before_running>"
+    # e.g., "Incoming inputs are pre-sanitized and schema-validated"
+
+  [guarantees | postconditions]:
+    - "<promised_state_or_exit_invariant>"
+    # e.g., "State updates are committed atomically with zero data loss"
+
+  # Contingency and recovery handling:
+  contingency:
+    on_failure: "<fallback_action_rollback_or_alert>"
+    fallback_target: "<secondary_safe_endpoint_or_default_state>" # optional fallback target
+    max_retries: <integer_count>                                  # optional retry limit
+    [recovery_policy | failure_mode | fallback_strategy | ...]: [abort | rollback | continue_with_warning]
+
+  state_model:
+    [lifecycle | state_flow | transitions]: "draft -> in_review -> approved -> published"
+    concurrency: [synchronous | asynchronous | parallel]
+
+  evaluation:
+    [verify | checks]:
+      - "<positive_pass_fail_assertion>"
+    [validation_strategy | test_harness]:
+      - "<schema_validation_mechanism_or_test_suite>"
+
+
+# ------------------------------------------------------------------------------
+# 4. THE CROSS-SURFACE SYNCHRONIZATION SPECIFICATION (BINDING UNIT)
+# ------------------------------------------------------------------------------
+# Used when a shared concept, domain schema, or interface rename must remain
+# strictly synchronized across multiple distinct documents, codebases, or surfaces.
+
+[sync_contract | binding_unit]:
+  name: "<shared_concept_or_symbol>" # e.g., user_id_type, order_lifecycle_enum
+
+  authority:
+    [ground_truth | master_source]: "<authoritative_document_or_spec_path>"
+    precedence: "<primary_source> > <secondary_source> > <default_assumption>"
+
+  # Explicit mapping across participating surfaces:
+  surfaces:
+    - location: "<surface_a_file_path>" # e.g., src/models/user.py
+      field: "<matching_symbol_a>"      # e.g., user_id: UUID
+    - location: "<surface_b_file_path>" # e.g., docs/schema.yaml
+      field: "<matching_symbol_b>"      # e.g., "userId: string"
+
+  parity_rules:
+    preserve_<aspect_to_lock>: true
+    prohibited:
+      - "unsynchronized_renames_or_orphaned_aliases"
+      - "unilateral_field_modifications"
+
+  evaluation:
+    [verify | checks]:
+      - "all_surfaces_match_official_name == true"

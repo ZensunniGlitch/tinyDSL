@@ -1,0 +1,727 @@
+# ==============================================================================
+# tinyDSL CORE BUNDLE: SPECIFICATION, SHAPES & PATTERN LIBRARY
+# ==============================================================================
+# This bundle contains the full operational specification and core pattern library
+# for translating unstructured tasks and requirements into tinyDSL.
+# ==============================================================================
+
+
+# ==============================================================================
+# PART 1: TRANSLATION & AUTHORING SPECIFICATION
+# ==============================================================================
+
+system: "tinyDSL"
+specification: "Translation & Authoring Instructions"
+purpose: "Translates unstructured inputs into tinyDSL."
+
+authority:
+  pattern_library: "tinyDSL_pattern_library"
+  precedence: "translation_rules > pattern_library > model_reasoning"
+
+authoring_principles:
+  source_over_schema: true
+  semantics_over_symmetry: true
+  concrete_language_over_abstraction: true
+  source_normativity_preserved: true
+
+  principle: >
+    Structure follows information. Do not add information to complete
+    an expected structure.
+
+  vocabulary:
+    prefer_concrete_domain_terms: true
+    avoid_abstract_labels_when_concrete_terms_exist: true
+
+  inference:
+    permitted: [structure_explicit_information, resolve_choices, condense_prose]
+    prohibited:
+      - invent_requirements
+      - invent_thresholds
+      - invent_categories
+      - invent_dependencies
+      - broaden_or_narrow_source_scope
+      - convert_examples_into_rules
+
+  normativity:
+    preserve_distinction_between:
+      - required
+      - encouraged
+      - permitted
+      - typical
+      - example
+
+  abstraction:
+    rule: >
+      Use the lowest abstraction level that preserves the source meaning
+      and gives the receiving model sufficient information to act correctly.
+
+  vocabulary_test: >
+    If an abstract term could be replaced by a concrete term describing
+    the actual task, use the concrete term.
+
+  completeness_test: >
+    Do not add a section, key, constraint, or invariant solely because
+    a structured specification appears to be missing one.
+
+policies:
+  target_outcome_framing: required
+  positive_negative_separation: required
+  condense_explanatory_narrative: required
+  generative_pattern_adaptation: encouraged
+  prose_for_verbatim_nuance: permitted
+  parser_validation: not_required
+  procedural_step_narratives: prohibited
+  echoing_template_scaffolding: prohibited
+
+translation_rules:
+  instantiation:
+    bracketed_choices: resolve_to_single_domain_term
+    placeholders: replace_with_concrete_domain_facts
+    template_scaffolding: strip_from_final_output
+
+  prose_management:
+    explanatory_prose:
+      action: condense_to_structured_keys
+      applies_to: [rules, constraints, dependencies, workflows]
+    verbatim_or_nuanced_prose:
+      action: preserve_intact
+      formats: [folded_blocks, literal_blocks, quoted_strings]
+      preserve_when:
+        - wording_itself_carries_meaning
+        - exact_output_text_is_required
+        - code_formatting_is_required
+        - altering_wording_would_change_the_requirement
+
+  structural_framing:
+    paradigm: declarative_target_outcome
+    workflow_stages: required_completion_states
+    procedural_action_steps: prohibited
+
+  atomic_tokens:
+    naming_convention: snake_case
+    compound_descriptors: fused_snake_case_strings # e.g., atomic_transaction_with_rollback
+    numeric_parameters: fused_unit_strings         # e.g., 30_sec, 400_loc, 24_hr
+    nested_dictionaries: use_only_when_multiple_parameters_vary_independently
+
+  status_quo_preservation:
+    unmentioned_elements: preserve_unchanged
+    unspecified_behavior: retain_existing
+    modifications: explicit_requests_only
+    deletions: explicit_requests_only
+
+  readability:
+    priority: immediate_structural_legibility
+    parser_optimization: not_required
+
+drift_control:
+  strategy: anticipate_and_name_unprompted_additions
+  prohibited:
+    - modify_unmentioned_files
+    - add_unrequested_dependencies
+    - invent_unrequested_schemas
+    - invent_unrequested_domain_facts
+    - infer_unrequested_requirements
+    - retain_template_scaffolding_in_final_output
+
+pattern_language_structure:
+  micro_patterns:
+    role: atomic_structural_primitives
+    scope: foundational_and_extensible
+    custom_keys: domain_appropriate_naming_permitted
+
+  modular_patterns:
+    role: reusable_organizational_sub_assemblies
+    application: adapt_recombine_or_omit
+
+  macro_patterns:
+    role: full_document_blueprints
+    application: adapt_recombine_or_omit
+
+  adaptation_rule:
+    priority: semantic_fidelity_and_clarity
+    rigid_template_conformity: subordinate
+
+scaffolding_cues:
+  "[choice_a | choice_b]": select_single_best_term
+  "[sample_1 | sample_2 | ...]": select_or_extend_by_domain_fit
+  "prefix_<aspect>": generative_wildcard_anchor
+  "<placeholder>": concrete_domain_identifier
+  "\"A -> B -> C\"": chronological_progression
+  "\"A > B > C\"": precedence_ranking
+  "\"A ← B\"": lineage_and_backward_traceability
+
+evaluation:
+  invariants:
+    - all_bracket_choices_resolved
+    - all_placeholders_instantiated
+    - template_scaffolding_removed
+    - negative_rules_separated_from_positive_requirements
+    - target_outcomes_replace_procedural_recipes
+    - unrequested_inventions: 0
+    - unmentioned_elements_preserved_intact
+
+
+# ==============================================================================
+# PART 2: THE VARIABILITY MATRIX & READING GUIDE
+# ==============================================================================
+#
+# ┌──────────────────────┬────────────────────────┬────────────────────────────┐
+# │ VARIABILITY          │ KEYS                   │ VALUES & PRIMITIVES        │
+# ├──────────────────────┼────────────────────────┼────────────────────────────┤
+# │ FIXED                │ fixed_key:             │ fixed_literal              │
+# ├──────────────────────┼────────────────────────┼────────────────────────────┤
+# │ CLOSED SET           │ [key_a | key_b]:       │ [value_a | value_b]        │
+# ├──────────────────────┼────────────────────────┼────────────────────────────┤
+# │ OPEN SET             │ [key_a | key_b | ...]: │ [value_a | value_b | ...]  │
+# ├──────────────────────┼────────────────────────┼────────────────────────────┤
+# │ PARAMETERIZED        │ prefix_<placeholder>:  │ prefix_<placeholder>       │
+# ├──────────────────────┼────────────────────────┼────────────────────────────┤
+# │ DYNAMIC              │ <key_placeholder>:     │ "<value_placeholder>"      │
+# └──────────────────────┴────────────────────────┴────────────────────────────┘
+#
+# 1. FIXED: Immutable keys and literals written verbatim (e.g., prohibited:, true).
+# 2. CLOSED SET ([a | b]): Mutually exclusive choices. Select exactly one term.
+# 3. OPEN SET ([a | b | ...]): Extensible choices inferred by shared domain traits.
+# 4. PARAMETERIZED (prefix_<...>): Fixed prefix fused with an open dynamic slot.
+# 5. DYNAMIC (<...>): Unconstrained user-defined identifiers, names, or strings.
+#    - Explanatory comments (# e.g., ...) provide illustrative grounding.
+# ==============================================================================
+
+
+# ==============================================================================
+# 0. SHAPES & SHIFTS
+# ==============================================================================
+# tinyDSL blends structured keys for precision with natural prose for nuance.
+# Any pattern in this library can freely embed prose or adapt its shape across
+# these standard structural dimensions:
+
+
+# ------------------------------------------------------------------------------
+# 0.1 NATURAL PROSE VEHICLES (Nuance, Intent & Context)
+# ------------------------------------------------------------------------------
+
+# Inline Prose: Single-sentence directive, summary, or inline description
+<key_name>: "<natural_language_directive_or_summary>"
+
+# Folded Prose (>): Flowing narrative context (newlines fold to spaces)
+<narrative_key>: > # e.g., purpose, backstory, rationale, description
+  <Flowing natural-language prose describing intent, background, or nuance
+  where rigid key-value decomposition would reduce clarity.>
+
+# Literal Block (|): Verbatim templates, code snippets, or multiline excerpts
+<verbatim_key>: | # e.g., template, raw_prompt, source_excerpt
+  <Verbatim multiline content preserving exact indentation and line breaks.>
+
+
+# ------------------------------------------------------------------------------
+# 0.2 STRUCTURAL VARIATIONS & ADAPTATIONS
+# ------------------------------------------------------------------------------
+
+# A. CARDINALITY: Scalar ↔ Sequence
+# Collapse to a single scalar when only one item exists; expand when multiple.
+<key>: <value>
+# ↔
+<key>:
+  - <value_1>
+  - <value_2>
+
+
+# B. DENSITY: Flat Leaf Token ↔ Scoped Attribute Record
+# Use flat tokens when names suffice; expand into records when attributes are needed.
+<collection_key>: [<item_1>, <item_2>]
+# ↔
+<collection_key>:
+  - name: <item_1>
+    <attribute>: <value>
+  - name: <item_2>
+    <attribute>: <value>
+
+
+# C. UNORDERED LAYOUT FLOW: Block Formatting ↔ Inline Flow Formatting
+# Standard YAML bracket syntax for generic, unordered sets and maps.
+<sequence_key>:
+  - <item_1>
+  - <item_2>
+<map_key>:
+  <k1>: <v1>
+# ↔
+<sequence_key>: [<item_1>, <item_2>]
+<map_key>: { <k1>: <v1> }
+
+
+# D. DIRECTED OPERATOR FLOW: Operator Shorthand ↔ Discrete Sequence / Map
+# Unlike generic YAML flow [A, B], operator strings provide immediate visual
+# contrast for directed flows (->), ranking chains (>), and lineage (←).
+<flow_key>: "<node_a> -> <node_b> -> <node_c>" # chronological progression
+# ↔
+<flow_key>:
+  - <node_a>
+  - <node_b>
+  - <node_c>
+
+<rank_key>: "<primary_source> > <secondary_source> > <default_assumption>" # precedence hierarchy
+# ↔
+<rank_key>:
+  - <primary_source>
+  - <secondary_source>
+  - <default_assumption>
+
+<trace_key>: "<target_decision> ← <parent_authoritative_source>" # lineage / justification
+# ↔
+<trace_key>:
+  target: <target_decision>
+  justified_by: <parent_authoritative_source>
+
+
+# E. SCOPE WRAPPING: Global Directive ↔ Target-Scoped Perimeter
+# Apply a rule globally, or nest it under a specific file/module/entity key.
+<directive_key>:
+  - <rule_or_instruction>
+# ↔
+<target_surface_or_entity>:
+  <directive_key>:
+    - <rule_or_instruction>
+
+
+# F. QUANTITY FUSION: Fused Unit Token ↔ Structured Measurement Map
+# Atomic fused scalar tokens for concise parameters without unit-field bloat.
+<limit_or_timer_key>: <magnitude>_<unit> # e.g., 30_sec, 400_loc, 24_hr
+# ↔
+<limit_or_timer_key>:
+  magnitude: <magnitude>
+  unit: "<unit_name>"
+
+
+# G. CATEGORICAL TRANSPOSITION: Category-Grouped ↔ Entity-Mapped
+# Interchangeable for policies, rules, and modality assignments.
+# (Note: Inapplicable to chronological flows, rankings, and layout ordering).
+<category_a>: [<entity_1>, <entity_2>]
+<category_b>: [<entity_3>]
+# ↔
+<entity_map_name>:
+  <entity_1>: <category_a>
+  <entity_2>: <category_a>
+  <entity_3>: <category_b>
+
+
+# ==============================================================================
+# PART 3: MICRO PATTERNS (MICROS)
+# ==============================================================================
+
+
+# ------------------------------------------------------------------------------
+# 1. GUARDRAIL & MODALITY PATTERNS
+# ------------------------------------------------------------------------------
+
+# 1.1 Negative Exclusion Block (Quarantines Forbidden Actions/Additions)
+prohibited:
+  - "<forbidden_action_or_addition>" # e.g., "unauthorized_signature_changes"
+  - "<unauthorized_modification>"    # e.g., "unrequested_taxonomies"
+
+# 1.2 Parameterized Preservation Flag (Generative Boolean Anchor)
+preserve_<aspect_to_lock>: true # e.g., preserve_behavior, preserve_signatures, preserve_blank_lines
+
+# 1.3 Explicit Affirmative Retention List
+preserve:
+  - "<element_or_logic_to_keep_intact>" # e.g., "existing_comment_blocks"
+  - "<structural_formatting_to_retain>" # e.g., "public_api_method_names"
+
+# 1.4 Graded Modal Spectrum (Container Keys — 5-Tier Scale)
+required:    # mandatory / must be fulfilled to be valid
+  - "<mandatory_item_or_constraint>"
+encouraged:  # preferred / recommended approach
+  - "<preferred_style_or_best_practice>"
+permitted:   # allowed at practitioner discretion / neutral
+  - "<optional_extension_or_format>"
+discouraged: # avoid unless explicitly justified
+  - "<antipattern_or_temporary_workaround>"
+prohibited:  # strictly forbidden under all circumstances
+  - "<disallowed_action_or_mutation>"
+
+# 1.5 Inline Modal Attribute Modifying a Single Field
+<field_or_action_name>:
+  value: <field_value>
+  modality: [required | encouraged | permitted | discouraged | prohibited]
+
+# 1.6 Invariants (Standalone Universal System Truths)
+invariants:
+  - "<invariant_condition>" # e.g., "State mutations occur exclusively via validated events"
+  - "<invariant_condition>" # e.g., "Referential integrity holds across all profile layers"
+
+
+# ------------------------------------------------------------------------------
+# 2. SCOPE & BOUNDARY PATTERNS
+# ------------------------------------------------------------------------------
+
+# 2.1 Context Sandbox (Operational File / Surface Perimeter)
+context:
+  [load | read_from]: # read-only source files or inputs to inspect
+    - "<read_only_source_or_file_path>"
+  [modify | write_to]: # active targets permitted to be altered
+    - "<modifiable_surface_or_file_path>"
+  # Co-existing sibling extensions (add as applicable):
+  <sandbox_extension>: # e.g., scratchpad, tools, environment
+    - "<temporary_buffer_or_permitted_utility>"
+
+# 2.2 Operational Scope (Blast Radius Perimeter)
+scope: "<boundary_perimeter>" # e.g., "src/ingress_flow/", "billing_service", "api_gateway"
+
+# 2.3 Scoped Applicability Map
+applicability:
+  scope: "<boundary_level>" # e.g., system_wide, subsystem, component, file_perimeter
+  target_boundary: "<specific_boundary_or_interface>"
+
+
+# ------------------------------------------------------------------------------
+# 3. AUTHORITY & PROVENANCE PATTERNS
+# ------------------------------------------------------------------------------
+
+# 3.1 Precedence Hierarchy (Resolves Contradictions Deterministically)
+precedence: "<primary_source> > <secondary_source> > <default_assumption>"
+
+# 3.2 Provenance Anchor (Attribution / Lineage / Rationale)
+[source | derived_from | justified_by]: "<parent_rule_spec_decision_or_doc_path>"
+# - source: neutral origin pointer
+# - derived_from: data or artifact lineage
+# - justified_by: normative design rationale / RFC justification
+
+# 3.3 Backward Derivation Inline Shorthand
+traceability: "<target_decision> ← <parent_authoritative_source>"
+
+# 3.4 Authority Binding & Governance (Epistemic Status & Ground Truth)
+authority:
+  [ground_truth | master_source]: "<authoritative_file_or_spec_path>"
+  governs:
+    - "<governed_aspect>" # e.g., structure, logic, terminology, schemas
+  precedence: "<primary_source> > <secondary_source> > <default_assumption>"
+
+
+# ------------------------------------------------------------------------------
+# 4. EXPECTATIONS & BEHAVIOR PATTERNS
+# ------------------------------------------------------------------------------
+
+# 4.1 Preconditions (Assumptions Required True Before Starting)
+[assumptions | preconditions]:
+  - "<precondition_assertion>" # e.g., "Incoming evidence is pre-sanitized and deduplicated"
+  - "<precondition_assertion>" # e.g., "Database connection pool is initialized and active"
+
+# 4.2 Postconditions (Outward Contractual Guarantees)
+# Represents the outward SLA promised to consumers, distinct from test assertions.
+[guarantees | postconditions]:
+  - "<promised_state_or_exit_invariant>" # e.g., "Referential integrity maintained across layers"
+  - "<promised_state_or_exit_invariant>" # e.g., "Output artifacts are platform-independent"
+
+# 4.3 Contingency & Failure Recovery
+contingency:
+  on_failure: "<fallback_action_rollback_or_alert>"
+  fallback_target: "<secondary_safe_route_or_default_value>" # optional fallback target
+  max_retries: <integer_count>                                # optional retry count
+  [recovery_policy | failure_mode | fallback_strategy | ...]: [abort | rollback | continue_with_warning]
+
+# 4.4 Parameterized Reactive Event Hook
+on_<event_trigger>: "<action_or_fallback_route>" # e.g., on_failure, on_timeout, on_retry_exhausted
+
+# 4.5 Sequential Lifecycle Flow (Ordered Chronological Transitions)
+[lifecycle | state_flow | transitions]: "draft -> in_review -> approved -> published"
+
+# 4.6 Static Status Snapshot (Discrete Point-in-Time Condition)
+[status | current_phase | state]: "<single_static_condition>"
+# - status: general operational health or flag (e.g., active, ready, failed)
+# - current_phase: position within a workflow or process (e.g., pre-flight, in_review)
+# - state: discrete data or entity condition (e.g., null, initialized)
+
+
+# ------------------------------------------------------------------------------
+# 5. RELATIONSHIP & INTERACTION PATTERNS
+# ------------------------------------------------------------------------------
+
+# 5.1 Dependencies (Sequence or Categorized Tiered Map)
+dependencies:
+  - "<required_entity_service_or_artifact>"
+
+# 5.1a Explicit Zero Dependencies Assertion
+dependencies: []
+
+# 5.2 Boundary Ingress & Egress (Inputs and Outputs Flow)
+[inputs | accepts]: ["<input_1>", "<input_2>"]
+[outputs | emits]: ["<output_1>", "<output_2>"]
+
+# 5.3 Downstream Consumer Promise (Caller-Facing SLA Contract)
+downstream: "<emitted_artifact_or_promise>" # e.g., "platform_independent_search_intent"
+
+# 5.4 Mediated Communication Channel (Routing & Boundary Limits)
+communication:
+  between: ["<source_entity>", "<target_entity>"] # e.g., ["reasoning_component", "execution_component"]
+  via: "<mediating_adapter_or_protocol>"          # e.g., "schema_validated_transient_artifacts"
+  direct_coupling: prohibited                     # optional boundary constraint
+
+# 5.5 Domain-Agnostic Interaction Channel (General Exchange Pathway)
+channel:
+  name: "<channel_name_or_id>"
+  direction: [inbound | outbound | bidirectional]
+  medium: "<exchange_medium>" # e.g., message_queue, api_call, document_transfer, review_desk
+  exchanges:
+    - action: "<action_or_request_name>"
+      description: "<purpose_of_this_exchange>"
+      payload:
+        - item: "<transferred_item_or_schema>"
+          format: "<expected_format_or_type>"
+          required: true # optional boolean flag
+
+
+# ------------------------------------------------------------------------------
+# 6. STRUCTURE & ENTITY PATTERNS
+# ------------------------------------------------------------------------------
+
+# 6.1 Domain Entity Block (Named Actor, Component, or Service)
+<entity_or_role_name>: # e.g., knowledge_component, search_planning_service, ingest_worker
+  name: "<human_readable_name>"   # e.g., "Ingress Knowledge Synthesizer"
+  role: "<primary_mission_or_duty>" # e.g., "Extracts factual milestones and synthesizes profile layers"
+  lifetime: [singleton | transient | ephemeral | session] # optional persistence scope
+
+# 6.2 Resource / Asset Ownership Block
+resources:
+  owned: # baseline primary assets managed by this entity
+    - name: "<asset_name_or_id>"
+      description: "<purpose_or_contents>"
+  # Co-existing sibling categories (add as applicable):
+  <resource_category>: # e.g., shared, external, ephemeral
+    - name: "<asset_name_or_id>"
+      description: "<purpose_or_contents>"
+
+# 6.3 Composition Hierarchy (Sub-Element Breakdown)
+[components | elements | sub_modules]: ["<sub_unit_a>", "<sub_unit_b>"]
+
+
+# ------------------------------------------------------------------------------
+# 7. OUTCOME & TRANSFORMATION PATTERNS
+# ------------------------------------------------------------------------------
+
+# 7.1 Structural Normalization (Layout Realignment)
+normalize:
+  [section_order | field_order | item_order | ...]:
+    - "<expected_first_item>"
+    - "<expected_second_item>"
+  section_headers: true    # optional switch: enforce standard header conventions
+  blank_line_spacing: true # optional switch: enforce standard spacing between blocks
+
+# 7.2 Target Outcome (Declarative Target End-State Layout)
+outcomes:
+  [target_outcome | target_layout | desired_end_state | ...]:
+    path: "<target_file_or_artifact_path>"
+    # Embeds normalization (7.1) when layout alignment is required:
+    normalize:
+      [section_order | field_order | item_order | ...]:
+        - "<expected_first_item>"
+        - "<expected_second_item>"
+      section_headers: true    # optional switch: enforce standard header conventions
+      blank_line_spacing: true # optional switch: enforce standard spacing between blocks
+
+# 7.3 Cross-Surface Synchronization (Multi-Document Parity Binding)
+[sync_contract | binding_unit]:
+  name: "<shared_concept_or_symbol>" # e.g., "user_id_type", "order_lifecycle_enum"
+  surfaces:
+    - location: "<surface_a_file_path>" # e.g., "src/models/user.py"
+      field: "<matching_symbol_a>"     # e.g., "user_id: UUID"
+    - location: "<surface_b_file_path>" # e.g., "docs/schema.yaml"
+      field: "<matching_symbol_b>"     # e.g., "userId: string"
+
+
+# ------------------------------------------------------------------------------
+# 8. CRITERIA & VERIFICATION PATTERNS
+# ------------------------------------------------------------------------------
+
+# 8.1 Falsifiable Verification Checklist (Internal Test Assertions)
+# Concrete assertions executed to test correctness and verify boundaries.
+[verify | checks]:
+  - "<positive_pass_fail_assertion>" # e.g., "section_header_count == 6"
+  - "<negative_proof_assertion>"     # e.g., "zero_legacy_imports_remain == true"
+
+# 8.2 Validation Mechanism (The Verifier / Tooling)
+# The specific tool, test harness, or schema runner executing the checklist.
+[validation_strategy | test_harness]:
+  - "<schema_validator_pydantic_model_or_test_suite>"
+
+# 8.3 Completion Gates & Acceptance Criteria
+[completion_criteria | acceptance]:
+  - "<mandatory_sign_off_or_exit_condition>"
+  - "<measurable_threshold_e.g._test_coverage_gte_90>"
+
+
+# ==============================================================================
+# PART 4: MODULAR PATTERNS (MODS)
+# ==============================================================================
+# Self-contained, modular sub-assemblies that combine 2–4 micropatterns to solve
+# a complete functional sub-problem within a prompt or document.
+
+
+# ------------------------------------------------------------------------------
+# 1. THE COMPLETE GUARDRAIL MOD
+# ------------------------------------------------------------------------------
+# Combines affirmative preservation flags, verbatim retention lists, isolated
+# negative exclusions, and baseline system truths into a single boundary envelope.
+constraints:
+  # Generative preservation flags:
+  preserve_<aspect_to_lock>: true # e.g., preserve_behavior, preserve_signatures
+
+  # Explicit affirmative retention list:
+  preserve:
+    - "<element_logic_or_comments_to_keep_intact>" # e.g., "public_api_method_signatures"
+
+  # Isolated negative quarantine:
+  prohibited:
+    - "<forbidden_action_or_addition>" # e.g., "unrequested_taxonomies"
+    - "<unauthorized_mutation>"        # e.g., "external_network_calls"
+
+  # Standalone baseline invariants (optional):
+  invariants:
+    - "<condition_that_must_always_hold>" # e.g., "State updates occur only via events"
+
+
+# ------------------------------------------------------------------------------
+# 2. THE OPERATIONAL SANDBOX MOD
+# ------------------------------------------------------------------------------
+# Combines read-only reference context, active modification targets, extensible
+# workspace utilities, and master authority into a complete execution envelope.
+context:
+  [load | read_from]: # read-only background material (must stay untouched)
+    - "<read_only_source_or_file_path>"
+  [modify | write_to]: # actively modifiable target surface
+    - "<modifiable_surface_or_file_path>"
+  # Co-existing workspace extensions (add as applicable):
+  <sandbox_extension>: # e.g., scratchpad, tools, environment
+    - "<temporary_buffer_or_permitted_utility>"
+
+authority:
+  [ground_truth | master_source]: "<authoritative_parent_spec_or_model>"
+  precedence: "<primary_source> > <secondary_source> > <default_assumption>"
+
+
+# ------------------------------------------------------------------------------
+# 3. THE AGREEMENT & CONTINGENCY MOD
+# ------------------------------------------------------------------------------
+# Pairs entry preconditions (assumptions) with outward exit SLAs (guarantees),
+# and attaches an explicit failure-recovery policy.
+contract_terms:
+  [assumptions | preconditions]:
+    - "<condition_assumed_true_before_running>" # e.g., "Inputs are pre-sanitized"
+
+  [guarantees | postconditions]:
+    - "<promised_state_or_exit_invariant>"     # e.g., "Referential integrity maintained"
+
+  contingency:
+    on_failure: "<fallback_action_rollback_or_alert>"
+    fallback_target: "<secondary_safe_route_or_default_value>" # optional fallback target
+    max_retries: <integer_count>                                # optional retry limit
+    [recovery_policy | failure_mode | fallback_strategy | ...]: [abort | rollback | continue_with_warning]
+
+
+# ------------------------------------------------------------------------------
+# 4. THE INTERACTION & EXCHANGE CHANNEL MOD
+# ------------------------------------------------------------------------------
+# A complete interaction pathway defining direction, transfer medium, exchange
+# actions, and expected data schemas.
+channel:
+  name: "<channel_name_or_id>"
+  direction: [inbound | outbound | bidirectional]
+  medium: "<exchange_medium>" # e.g., message_queue, api_call, document_transfer
+  exchanges:
+    - action: "<action_or_request_name>"
+      description: "<purpose_of_this_exchange>"
+      payload:
+        - item: "<transferred_item_or_schema>"
+          format: "<expected_format_or_type>"
+          required: true # optional boolean flag
+
+
+# ------------------------------------------------------------------------------
+# 5. THE VERIFICATION & ACCEPTANCE GATE MOD
+# ------------------------------------------------------------------------------
+# Decouples falsifiable pass/fail assertions from the test runner mechanism,
+# and pairs them with sign-off exit criteria.
+evaluation:
+  # Internal test checklist (the assertions):
+  [verify | checks]:
+    - "<positive_pass_fail_assertion>" # e.g., "section_header_count == 6"
+    - "<negative_proof_assertion>"     # e.g., "zero_legacy_imports_remain == true"
+
+  # The runner / mechanism executing the assertions:
+  [validation_strategy | test_harness]:
+    - "<schema_validator_pydantic_model_or_test_suite>"
+
+  # Final sign-off gate / threshold:
+  [completion_criteria | acceptance]:
+    - "<mandatory_sign_off_condition_or_threshold>" # e.g., "test_coverage_gte_90"
+
+
+# ------------------------------------------------------------------------------
+# 6. THE PROVENANCE & GOVERNANCE MOD
+# ------------------------------------------------------------------------------
+# Binds decisions to their authoritative justification, specifies governed scope,
+# and establishes deterministic conflict-resolution priority.
+governance:
+  [ground_truth | master_source]: "<authoritative_policy_or_spec_path>"
+  governs:
+    - "<governed_aspect>" # e.g., structure, logic, terminology, schemas
+  precedence: "<primary_source> > <secondary_source> > <default_assumption>"
+  lineage:
+    - traceability: "<target_decision_or_output> ← <parent_authoritative_source>"
+    - [source | derived_from | justified_by]: "<justifying_parent_id>"
+
+
+# ------------------------------------------------------------------------------
+# 7. THE RESOURCE & ACCESS CONTROL MOD
+# ------------------------------------------------------------------------------
+# Defines asset inventories using baseline + dynamic categories alongside
+# explicit access and mutation rules.
+resources:
+  owned: # baseline primary assets managed by this entity
+    - name: "<asset_name_or_id>"
+      description: "<purpose_or_contents>"
+  # Co-existing sibling categories (add as applicable):
+  <resource_category>: # e.g., shared, external, ephemeral
+    - name: "<asset_name_or_id>"
+      description: "<purpose_or_contents>"
+
+  access_policy:
+    mutation: [read_only | append_only | direct_write | atomic_transaction_with_rollback | ...]
+    prohibited:
+      - "<forbidden_direct_write_or_unauthorized_access>"
+
+
+# ------------------------------------------------------------------------------
+# 8. THE TARGET OUTCOME NORMALIZATION MOD
+# ------------------------------------------------------------------------------
+# Declares the target deliverable layout, structural alignment rules, and
+# formatting switches without procedural edit sequences.
+outcomes:
+  [target_outcome | target_layout | desired_end_state | ...]:
+    path: "<target_file_or_artifact_path>"
+    normalize:
+      [section_order | field_order | item_order | ...]:
+        - "<expected_first_item>"
+        - "<expected_second_item>"
+      section_headers: true    # optional switch: enforce standard header conventions
+      blank_line_spacing: true # optional switch: enforce standard spacing between blocks
+
+
+# ------------------------------------------------------------------------------
+# 9. THE CROSS-SURFACE SYNCHRONIZATION MOD
+# ------------------------------------------------------------------------------
+# A self-contained mapping module that binds shared concepts across multiple files
+# with parity constraints and synchronization checks.
+[sync_contract | binding_unit]:
+  name: "<shared_concept_or_symbol>" # e.g., "user_id_type", "order_lifecycle_enum"
+  surfaces:
+    - location: "<surface_a_file_path>" # e.g., "src/models/user.py"
+      field: "<matching_symbol_a>"     # e.g., "user_id: UUID"
+    - location: "<surface_b_file_path>" # e.g., "docs/schema.yaml"
+      field: "<matching_symbol_b>"     # e.g., "userId: string"
+
+  parity_rules:
+    preserve_<aspect_to_lock>: true
+    prohibited:
+      - "unsynchronized_renames_or_orphaned_aliases"
+      - "unilateral_field_modifications"
+    [verify | checks]:
+      - "all_surfaces_match_official_name == true"
